@@ -2,9 +2,8 @@
 import React,{useEffect} from 'react';
 import './App.css';
 import { Input} from 'antd';
-import Bar from './component/square'
-import BubbleSort from './algorithms/bubbleSort'
-import axios from 'axios'
+import Circlemade from './component/circle'
+
 
 class App extends React.Component{
   state={
@@ -15,16 +14,12 @@ class App extends React.Component{
   componentDidMount() {
     fetch("/array").then(response=>
       response.json().then(data=>{
-        console.log(data)
-        console.log(typeof(data))
         let newarray = data.slice() ;
         this.setState({
           array:newarray
         })
       }))
   }
-
-
   handleInputChange=(e)=>{
     this.setState({
       inputValue:e.target.value
@@ -46,8 +41,6 @@ class App extends React.Component{
     }
     fetch("/array").then(response=>
       response.json().then(data=>{
-        console.log(data)
-        console.log(typeof(data))
         let newarray = data.slice() ;
         this.setState({
           array:newarray
@@ -71,38 +64,45 @@ class App extends React.Component{
     }
     fetch("/array").then(response=>
       response.json().then(data=>{
-        console.log(data)
-        console.log(typeof(data))
         let newarray = data.slice() ;
         this.setState({
           array:newarray
         })
       }))
   }
-  // =()=>{
-  //   let newarray = []
-  //   this.setState({
-  //     inputValue:'',
-  //     array:newarray
-  //   })
-  // }
+
   sortDataBtn=()=>{
-    let array = this.state.array.slice();
-    BubbleSort(array);
-    this.setState({
-      array:array
-    })
+    console.log(this.state.array)
+    const response = fetch("/sort_array", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(this.state.array)
+    });
+    if (response.ok) {
+      console.log("response worked!");
+      this.setState({
+        inputValue:'',
+      })
+    }
+    fetch("/array").then(response=>
+      response.json().then(data=>{
+        let newarray = data.slice() ;
+        this.setState({
+          array:newarray
+        })
+      }))
   }
 
   render(){
-      let circleDiv = this.state.array.map((value,index)=><Bar
+      let circleDiv = this.state.array.map((value,index)=><Circlemade
       key={index}  
       data={value}
       />)
       return (
         <div className ="App">
           <h1>array visualization</h1>
-          <h2>push number between 0 to 99</h2>
           <section>
             <Input
             className="inputData"
