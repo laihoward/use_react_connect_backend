@@ -12,8 +12,6 @@ def api_array():
 @app.route('/add_array', methods=['POST'])
 def add_array():
     new_data = request.get_json()
-    print(type(new_data))
-    print(new_data)
     array.append(int(new_data))
     return jsonify(array)
 
@@ -25,16 +23,10 @@ def clear_array():
 @app.route('/sort_array', methods=['POST'])
 def sort_array():
     new_data = request.get_json()
-    print(type(new_data))
-    print(new_data)
-    print("="*10)
     BubbleSort(new_data)
-    print(new_data)
     array.clear()
     for i in range (len(new_data)):
          array.append(new_data[i])
-         
-    print(array)
     return jsonify(array)
 
 
