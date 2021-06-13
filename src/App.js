@@ -6,10 +6,15 @@ import Circlemade from './component/circle'
 
 
 class App extends React.Component{
-  state={
-    array:[],
-    inputValue:''
+  constructor(props){
+    super(props);
+    this.state={
+      array:[],
+      inputValue:''
+    }
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
+ 
 
   componentDidMount() {
     fetch("/array").then(response=>
@@ -20,7 +25,7 @@ class App extends React.Component{
         })
       }))
   }
-  handleInputChange=(e)=>{
+  handleInputChange(e){
     this.setState({
       inputValue:e.target.value
     })

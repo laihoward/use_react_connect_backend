@@ -6,7 +6,6 @@ const bubbleSort = (array) => {
       }
     }
   }
- 
   return;
 }
 function swap(array, indexA, indexB) {
